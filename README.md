@@ -59,11 +59,8 @@ dsh plugin --profile web add /解压路径/dsh-token-usage
 ### 方式二：Git 仓库
 
 ```sh
-# 发布方（一次性）：
-git init && git add . && git commit -m 'dsh-token-usage' && git push <你的仓库地址>
-
-# 使用者：
-dsh plugin --profile web add git+https://<你的仓库地址>.git
+# 使用者（本插件已发布在 GitHub，无需对方自己建仓库）：
+dsh plugin --profile web add git+https://github.com/huangyuheng/dsh-token-usage.git
 ```
 
 本插件没有 `prepare` 脚本，Git 安装不会被 pnpm 的 allowBuilds 拦截。
