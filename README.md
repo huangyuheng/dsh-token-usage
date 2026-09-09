@@ -5,15 +5,13 @@ DeepSeek Harness 实时 Token 用量插件：安装后在 **设置 → 插件 �
 ## 安装
 
 ```sh
-dsh plugin --profile web add /Users/huangyuheng/Documents/axz/dsh-token-usage
-# 重启 dsh web 后生效
+dsh plugin --profile web add git+https://github.com/huangyuheng/dsh-token-usage.git
 ```
 
-或从任意位置：
+重启 `dsh web` 后生效。下载 zip 解压后的本地目录安装：
 
 ```sh
-cd /Users/huangyuheng/Documents/axz/dsh-token-usage
-dsh plugin --profile web add .
+dsh plugin --profile web add /解压路径/dsh-token-usage
 ```
 
 ## 性能设计
