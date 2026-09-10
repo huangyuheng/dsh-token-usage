@@ -10,7 +10,11 @@
     "./cordis.patch.yml": "./cordis.patch.yml",
     "./package.json": "./package.json"
   },
-  "files": ["lib", "client", "cordis.patch.yml"],
+  "files": [
+    "lib",
+    "client",
+    "cordis.patch.yml"
+  ],
   "dsh": {
     "bundle": {
       "patch": "./cordis.patch.yml"
@@ -27,5 +31,17 @@
   "peerDependencies": {
     "@deepseek-ai/cordis": "^4.0.2"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "echarts": "^6.1.0",
+    "esbuild": "^0.28.2"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
+  },
+  "scripts": {
+    "build": "node scripts/build-client.mjs"
+  }
 }
