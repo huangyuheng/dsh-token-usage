@@ -22,10 +22,16 @@ window.__ModuleLoader__.load({ id: "dsh-token-usage", factory: (require) => {
     byModel: "按模型",
     byDay: "按日期",
     byProject: "按项目",
+    trend: "用量趋势",
+    trendNote: "每条折线按自身峰值归一化；悬停查看当日明细",
+    trendEmpty: "当前范围不足两天数据，切换到「按月」或「全部」查看趋势",
+    peak: "峰值",
     filterAll: "全部",
     filterDay: "按天",
     filterMonth: "按月",
     filterLabel: "范围",
+    modelLabel: "模型",
+    modelAll: "全部模型",
     unitLabel: "单位",
     unitZh: "中文",
     unitEn: "英文",
@@ -50,10 +56,16 @@ window.__ModuleLoader__.load({ id: "dsh-token-usage", factory: (require) => {
     byModel: "By model",
     byDay: "By day",
     byProject: "By project",
+    trend: "Usage trend",
+    trendNote: "Each line is normalized to its own peak; hover for daily detail",
+    trendEmpty: "Fewer than two days in range — switch to By month or All for a trend",
+    peak: "Peak",
     filterAll: "All",
     filterDay: "By day",
     filterMonth: "By month",
     filterLabel: "Range",
+    modelLabel: "Model",
+    modelAll: "All models",
     unitLabel: "Unit",
     unitZh: "中文",
     unitEn: "English",
@@ -66,7 +78,15 @@ window.__ModuleLoader__.load({ id: "dsh-token-usage", factory: (require) => {
     retry: "Retry"
   };
 
-  var css = ".dshtu_wrap{max-width:760px;display:flex;flex-direction:column;gap:14px;color:var(--dsw-alias-label-primary);font-size:13px}.dshtu_card{background:var(--dsw-alias-bg-layer-3);border-radius:14px;box-shadow:var(--dsw-elevation-stroke);padding:14px 16px}.dshtu_bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.dshtu_bar label{color:var(--dsw-alias-label-tertiary);font-size:12px}.dshtu_bar select,.dshtu_bar input{border:.5px solid var(--dsw-alias-border-l4);background:var(--dsw-alias-bg-layer-1);color:var(--dsw-alias-label-primary);font:inherit;border-radius:8px;padding:4px 8px;font-size:12.5px}.dshtu_seg{display:inline-flex;border:.5px solid var(--dsw-alias-border-l4);border-radius:8px;overflow:hidden}.dshtu_seg button{border:0;background:0 0;color:var(--dsw-alias-label-secondary);font:inherit;cursor:pointer;padding:4px 10px;font-size:12.5px}.dshtu_seg button[data-on=true]{background:var(--dsw-alias-interactive-bg-hover);color:var(--dsw-alias-label-primary)}.dshtu_grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}.dshtu_stat{background:var(--dsw-alias-bg-module-platform);border-radius:10px;padding:10px 12px}.dshtu_stat b{display:block;font-size:16px;line-height:24px;font-variant-numeric:tabular-nums}.dshtu_stat span{color:var(--dsw-alias-label-tertiary);font-size:12px}.dshtu_stat[data-main=true]{background:color-mix(in srgb,var(--dsw-alias-state-business-primary) 12%,var(--dsw-alias-bg-module-platform))}.dshtu_stat[data-main=true] b{color:var(--dsw-alias-state-business-primary);font-size:20px}.dshtu_table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}.dshtu_table th,.dshtu_table td{text-align:right;padding:6px 8px;border-bottom:.5px solid var(--dsw-alias-border-l2);font-weight:400}.dshtu_table th:first-child,.dshtu_table td:first-child{text-align:left}.dshtu_table th{color:var(--dsw-alias-label-tertiary);font-size:12px}.dshtu_table td:first-child{overflow-wrap:anywhere;max-width:300px;color:var(--dsw-alias-label-secondary)}.dshtu_meta{color:var(--dsw-alias-label-tertiary);font-size:12px;line-height:18px}.dshtu_err{color:var(--dsw-alias-state-error-primary);display:flex;align-items:center;gap:10px}.dshtu_err button{border:.5px solid var(--dsw-alias-border-l3);color:var(--dsw-alias-label-primary);font:inherit;cursor:pointer;background:0 0;border-radius:6px;padding:4px 10px}";
+  var SERIES = [
+    { key: "total", label: "total", color: "#3b82f6" },
+    { key: "input", label: "input", color: "#10b981" },
+    { key: "output", label: "output", color: "#f59e0b" },
+    { key: "cacheRead", label: "cacheRead", color: "#8b5cf6" },
+    { key: "calls", label: "calls", color: "#ef4444" }
+  ];
+
+  var css = ".dshtu_wrap{max-width:860px;display:flex;flex-direction:column;gap:14px;color:var(--dsw-alias-label-primary);font-size:13px}.dshtu_card{background:var(--dsw-alias-bg-layer-3);border-radius:14px;box-shadow:var(--dsw-elevation-stroke);padding:14px 16px}.dshtu_bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.dshtu_bar label{color:var(--dsw-alias-label-tertiary);font-size:12px}.dshtu_bar select,.dshtu_bar input{border:.5px solid var(--dsw-alias-border-l4);background:var(--dsw-alias-bg-layer-1);color:var(--dsw-alias-label-primary);font:inherit;border-radius:8px;padding:4px 8px;font-size:12.5px;max-width:260px}.dshtu_seg{display:inline-flex;border:.5px solid var(--dsw-alias-border-l4);border-radius:8px;overflow:hidden}.dshtu_seg button{border:0;background:0 0;color:var(--dsw-alias-label-secondary);font:inherit;cursor:pointer;padding:4px 10px;font-size:12.5px}.dshtu_seg button[data-on=true]{background:var(--dsw-alias-interactive-bg-hover);color:var(--dsw-alias-label-primary)}.dshtu_grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}.dshtu_stat{background:var(--dsw-alias-bg-module-platform);border-radius:10px;padding:10px 12px}.dshtu_stat b{display:block;font-size:16px;line-height:24px;font-variant-numeric:tabular-nums}.dshtu_stat span{color:var(--dsw-alias-label-tertiary);font-size:12px}.dshtu_stat[data-main=true]{background:color-mix(in srgb,var(--dsw-alias-state-business-primary) 12%,var(--dsw-alias-bg-module-platform))}.dshtu_stat[data-main=true] b{color:var(--dsw-alias-state-business-primary);font-size:20px}.dshtu_table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}.dshtu_table th,.dshtu_table td{text-align:right;padding:6px 8px;border-bottom:.5px solid var(--dsw-alias-border-l2);font-weight:400}.dshtu_table th:first-child,.dshtu_table td:first-child{text-align:left}.dshtu_table th{color:var(--dsw-alias-label-tertiary);font-size:12px}.dshtu_table td:first-child{overflow-wrap:anywhere;max-width:300px;color:var(--dsw-alias-label-secondary)}.dshtu_meta{color:var(--dsw-alias-label-tertiary);font-size:12px;line-height:18px}.dshtu_err{color:var(--dsw-alias-state-error-primary);display:flex;align-items:center;gap:10px}.dshtu_err button{border:.5px solid var(--dsw-alias-border-l3);color:var(--dsw-alias-label-primary);font:inherit;cursor:pointer;background:0 0;border-radius:6px;padding:4px 10px}.dshtu_chartWrap{position:relative}.dshtu_legend{display:flex;flex-wrap:wrap;gap:10px 16px;margin-top:8px}.dshtu_legendItem{display:inline-flex;align-items:center;gap:6px;color:var(--dsw-alias-label-secondary);font-size:12px}.dshtu_dot{width:8px;height:8px;border-radius:999px;flex:none}.dshtu_tip{position:absolute;top:6px;transform:translateX(-50%);background:var(--dsw-alias-bg-layer-1);border:.5px solid var(--dsw-alias-border-l3);border-radius:8px;padding:6px 9px;font-size:12px;line-height:17px;color:var(--dsw-alias-label-primary);pointer-events:none;white-space:nowrap;box-shadow:var(--dsw-elevation-panel);z-index:2}";
 
   function trimNum(v, decimals) {
     var f = v.toFixed(decimals);
@@ -77,6 +97,7 @@ window.__ModuleLoader__.load({ id: "dsh-token-usage", factory: (require) => {
   function fmtValue(v, unit) {
     v = v || 0;
     if (unit === "en") {
+      if (v >= 1e9) return trimNum(v / 1e9, 2) + "B";
       if (v >= 1e6) return trimNum(v / 1e6, 2) + "M";
       if (v >= 1e3) return trimNum(v / 1e3, 1) + "K";
       return String(v);
@@ -129,6 +150,92 @@ window.__ModuleLoader__.load({ id: "dsh-token-usage", factory: (require) => {
         }))));
   }
 
+  function TrendChart(props) {
+    var t = props.t;
+    var unit = props.unit;
+    var byDay = props.byDay || {};
+    var days = Object.keys(byDay).sort();
+    var hoverState = useState(null);
+    var hover = hoverState[0];
+    var setHover = hoverState[1];
+
+    if (days.length < 2) {
+      return h("div", { className: "dshtu_card dshtu_meta" }, t("trendEmpty"));
+    }
+
+    var W = 840, H = 220, PL = 10, PR = 10, PT = 12, PB = 26;
+    var innerW = W - PL - PR;
+    var innerH = H - PT - PB;
+    var maxes = {};
+    SERIES.forEach(function (s) {
+      var max = 0;
+      days.forEach(function (d) { max = Math.max(max, byDay[d][s.key] || 0); });
+      maxes[s.key] = max || 1;
+    });
+    var xAt = function (i) { return PL + innerW * i / (days.length - 1); };
+    var yAt = function (value, key) { return PT + innerH * (1 - (value || 0) / maxes[key]); };
+    var labelStep = Math.max(1, Math.ceil(days.length / 7));
+
+    var onMove = function (event) {
+      var rect = event.currentTarget.getBoundingClientRect();
+      var rel = (event.clientX - rect.left) / rect.width * W;
+      var idx = Math.round((rel - PL) / innerW * (days.length - 1));
+      if (idx < 0) idx = 0;
+      if (idx > days.length - 1) idx = days.length - 1;
+      setHover(idx);
+    };
+
+    var children = [];
+    days.forEach(function (day, i) {
+      if (i % labelStep === 0 || i === days.length - 1) {
+        children.push(h("text", { key: "x" + day, x: xAt(i), y: H - 8, textAnchor: "middle", fontSize: 10, fill: "currentColor", opacity: 0.55 }, day.slice(5)));
+      }
+    });
+    SERIES.forEach(function (s) {
+      var points = days.map(function (day, i) { return xAt(i) + "," + yAt(byDay[day][s.key], s.key); }).join(" ");
+      children.push(h("polyline", { key: "line" + s.key, points: points, fill: "none", stroke: s.color, strokeWidth: 1.8, strokeLinejoin: "round", strokeLinecap: "round" }));
+      if (hover !== null) {
+        children.push(h("circle", { key: "dot" + s.key, cx: xAt(hover), cy: yAt(byDay[days[hover]][s.key], s.key), r: 3, fill: s.color }));
+      }
+    });
+    if (hover !== null) {
+      children.push(h("line", { key: "guide", x1: xAt(hover), y1: PT, x2: xAt(hover), y2: PT + innerH, stroke: "currentColor", strokeWidth: 0.5, opacity: 0.35 }));
+    }
+
+    var tip = null;
+    if (hover !== null) {
+      var day = days[hover];
+      var tipLines = [h("div", { key: "d", style: { fontWeight: 600 } }, day)].concat(SERIES.map(function (s) {
+        return h("div", { key: s.key },
+          h("span", { className: "dshtu_dot", style: { background: s.color, display: "inline-block", marginRight: "6px" } }),
+          t(s.label) + ": " + fmtValue(byDay[day][s.key], unit));
+      }));
+      tip = h("div", { className: "dshtu_tip", style: { left: (xAt(hover) / W * 100) + "%" } }, tipLines);
+    }
+
+    var legend = SERIES.map(function (s) {
+      return h("span", { key: s.key, className: "dshtu_legendItem" },
+        h("span", { className: "dshtu_dot", style: { background: s.color } }),
+        t(s.label),
+        h("span", { style: { opacity: 0.65 } }, "(" + t("peak") + " " + fmtValue(maxes[s.key], unit) + ")"));
+    });
+
+    return h("div", { className: "dshtu_card" },
+      h("div", { className: "dshtu_meta" }, t("trend")),
+      h("div", { className: "dshtu_chartWrap" },
+        h("svg", {
+          viewBox: "0 0 " + W + " " + H,
+          width: "100%",
+          height: "220",
+          onMouseMove: onMove,
+          onMouseLeave: function () { setHover(null); },
+          style: { color: "var(--dsw-alias-label-tertiary)", display: "block" }
+        }, children),
+        tip),
+      h("div", { className: "dshtu_legend" }, legend),
+      h("div", { className: "dshtu_meta" }, t("trendNote")));
+  }
+
   function Tab(props) {
     var t = props.t;
     var _a = useState(null), data = _a[0], setData = _a[1];
@@ -137,11 +244,16 @@ window.__ModuleLoader__.load({ id: "dsh-token-usage", factory: (require) => {
     var _d = useState("day"), mode = _d[0], setMode = _d[1];
     var _e = useState(today()), day = _e[0], setDay = _e[1];
     var _f = useState(thisMonth()), month = _f[0], setMonth = _f[1];
-    var _g = useState(function () {
+    var _g = useState(""), model = _g[0], setModel = _g[1];
+    var _h = useState(function () {
       try { return localStorage.getItem("dshtu.unit") === "en" ? "en" : "zh"; } catch (err) { return "zh"; }
-    }), unit = _g[0], setUnit = _g[1];
+    }), unit = _h[0], setUnit = _h[1];
 
-    var query = mode === "day" ? "?day=" + day : mode === "month" ? "?month=" + month : "";
+    var parts = [];
+    if (mode === "day") parts.push("day=" + day);
+    if (mode === "month") parts.push("month=" + month);
+    if (model) parts.push("model=" + encodeURIComponent(model));
+    var query = parts.length > 0 ? "?" + parts.join("&") : "";
 
     useEffect(function () {
       var stopped = false;
@@ -209,6 +321,7 @@ window.__ModuleLoader__.load({ id: "dsh-token-usage", factory: (require) => {
         h("div", { className: "dshtu_card dshtu_meta" }, t("loading")));
     }
     var totals = data.totals || {};
+    var models = (data.models && data.models.length > 0 ? data.models : Object.keys(data.byModel || {}));
     var metaParts = [];
     if (data.scan && data.scan.done) {
       metaParts.push(t("scanDone").replace("{sessions}", data.scan.sessions).replace("{files}", data.scan.files).replace("{ms}", data.scan.ms));
@@ -228,6 +341,10 @@ window.__ModuleLoader__.load({ id: "dsh-token-usage", factory: (require) => {
             modeTab("all", t("filterAll"))),
           mode === "day" ? h("input", { type: "date", value: day, onChange: function (e) { setDay(e.target.value); setTick(tick + 1); } }) : null,
           mode === "month" ? h("input", { type: "month", value: month, onChange: function (e) { setMonth(e.target.value); setTick(tick + 1); } }) : null,
+          h("label", null, t("modelLabel")),
+          h("select", { value: model, onChange: function (e) { setModel(e.target.value); setTick(tick + 1); } },
+            h("option", { value: "" }, t("modelAll")),
+            models.map(function (name) { return h("option", { key: name, value: name }, name); })),
           h("span", { style: { flex: "1" } }),
           h("label", null, t("unitLabel")),
           h("span", { className: "dshtu_seg" }, seg("zh", t("unitZh")), seg("en", t("unitEn")))),
@@ -240,6 +357,7 @@ window.__ModuleLoader__.load({ id: "dsh-token-usage", factory: (require) => {
           statBox(t, t("cacheWrite"), totals.cacheWrite, unit),
           statBox(t, t("reasoning"), totals.reasoning, unit),
           statBox(t, t("calls"), totals.calls, unit))),
+      h(TrendChart, { t: t, unit: unit, byDay: data.byDay }),
       table(t, t("byModel"), data.byModel, unit),
       table(t, t("byDay"), data.byDay, unit),
       table(t, t("byProject"), data.byProject, unit),
