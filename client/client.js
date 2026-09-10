@@ -195,7 +195,7 @@ window.__ModuleLoader__.load({ id: "dsh-token-usage", factory: (require) => {
           name: t(s.label),
           type: "line",
           yAxisIndex: s.axis,
-          smooth: false,
+          smooth: 0.35,
           symbol: "none",
           showSymbol: false,
           lineStyle: { width: 2, color: s.color },
