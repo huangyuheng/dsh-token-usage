@@ -41,6 +41,7 @@ window.__ModuleLoader__.load({ id: "dsh-token-usage", factory: (require) => {
     updated: "更新于 {time}",
     loading: "加载中…",
     error: "读取失败",
+    remoteDenied: "接口仅允许本机访问；局域网使用需在插件配置中开启 allowRemote",
     retry: "重试"
   };
   var en = {
@@ -75,10 +76,11 @@ window.__ModuleLoader__.load({ id: "dsh-token-usage", factory: (require) => {
     updated: "Updated {time}",
     loading: "Loading…",
     error: "Failed to load",
+    remoteDenied: "Endpoint is loopback-only; enable allowRemote in the plugin config for LAN access",
     retry: "Retry"
   };
 
-  var css = ".dshtu_wrap{max-width:860px;display:flex;flex-direction:column;gap:14px;color:var(--dsw-alias-label-primary);font-size:13px}.dshtu_card{background:var(--dsw-alias-bg-layer-3);border-radius:14px;box-shadow:var(--dsw-elevation-stroke);padding:14px 16px}.dshtu_bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.dshtu_bar label{color:var(--dsw-alias-label-tertiary);font-size:12px}.dshtu_bar select,.dshtu_bar input{border:.5px solid var(--dsw-alias-border-l4);background:var(--dsw-alias-bg-layer-1);color:var(--dsw-alias-label-primary);font:inherit;border-radius:8px;padding:4px 8px;font-size:12.5px}.dshtu_bar select{width:168px;text-overflow:ellipsis;white-space:nowrap}.dshtu_field{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}.dshtu_seg{display:inline-flex;border:.5px solid var(--dsw-alias-border-l4);border-radius:8px;overflow:hidden}.dshtu_seg button{border:0;background:0 0;color:var(--dsw-alias-label-secondary);font:inherit;cursor:pointer;padding:4px 10px;font-size:12.5px}.dshtu_seg button[data-on=true]{background:var(--dsw-alias-interactive-bg-hover);color:var(--dsw-alias-label-primary)}.dshtu_grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}.dshtu_stat{background:var(--dsw-alias-bg-module-platform);border-radius:10px;padding:10px 12px}.dshtu_stat b{display:block;font-size:16px;line-height:24px;font-variant-numeric:tabular-nums}.dshtu_stat span{color:var(--dsw-alias-label-tertiary);font-size:12px}.dshtu_stat[data-main=true]{background:color-mix(in srgb,var(--dsw-alias-state-business-primary) 12%,var(--dsw-alias-bg-module-platform))}.dshtu_stat[data-main=true] b{color:var(--dsw-alias-state-business-primary);font-size:20px}.dshtu_table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}.dshtu_table th,.dshtu_table td{text-align:right;padding:6px 8px;border-bottom:.5px solid var(--dsw-alias-border-l2);font-weight:400}.dshtu_table th:first-child,.dshtu_table td:first-child{text-align:left}.dshtu_table th{color:var(--dsw-alias-label-tertiary);font-size:12px}.dshtu_table td:first-child{overflow-wrap:anywhere;max-width:300px;color:var(--dsw-alias-label-secondary)}.dshtu_meta{color:var(--dsw-alias-label-tertiary);font-size:12px;line-height:18px}.dshtu_err{color:var(--dsw-alias-state-error-primary);display:flex;align-items:center;gap:10px}.dshtu_err button{border:.5px solid var(--dsw-alias-border-l3);color:var(--dsw-alias-label-primary);font:inherit;cursor:pointer;background:0 0;border-radius:6px;padding:4px 10px}.dshtu_chart{width:100%;height:260px}";
+  var css = ".dshtu_wrap{max-width:860px;display:flex;flex-direction:column;gap:14px;color:var(--dsw-alias-label-primary);font-size:13px}.dshtu_card{background:var(--dsw-alias-bg-layer-3);border-radius:14px;box-shadow:var(--dsw-elevation-stroke);padding:14px 16px}.dshtu_bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.dshtu_bar label{color:var(--dsw-alias-label-tertiary);font-size:12px}.dshtu_bar select,.dshtu_bar input{border:.5px solid var(--dsw-alias-border-l4);background:var(--dsw-alias-bg-layer-1);color:var(--dsw-alias-label-primary);font:inherit;border-radius:8px;padding:4px 8px;font-size:12.5px}.dshtu_bar select{width:168px;text-overflow:ellipsis;white-space:nowrap}.dshtu_field{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}.dshtu_seg{display:inline-flex;border:.5px solid var(--dsw-alias-border-l4);border-radius:8px;overflow:hidden}.dshtu_seg button{border:0;background:0 0;color:var(--dsw-alias-label-secondary);font:inherit;cursor:pointer;padding:4px 10px;font-size:12.5px}.dshtu_seg button[data-on=true]{background:var(--dsw-alias-interactive-bg-hover);color:var(--dsw-alias-label-primary)}.dshtu_totalsMeta{margin-top:12px}.dshtu_grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-top:8px}.dshtu_stat{background:var(--dsw-alias-bg-module-platform);border-radius:10px;padding:10px 12px}.dshtu_stat b{display:block;font-size:16px;line-height:24px;font-variant-numeric:tabular-nums}.dshtu_stat span{color:var(--dsw-alias-label-tertiary);font-size:12px}.dshtu_stat[data-main=true]{background:color-mix(in srgb,var(--dsw-alias-state-business-primary) 12%,var(--dsw-alias-bg-module-platform))}.dshtu_stat[data-main=true] b{color:var(--dsw-alias-state-business-primary);font-size:20px}.dshtu_table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}.dshtu_table th,.dshtu_table td{text-align:right;padding:6px 8px;border-bottom:.5px solid var(--dsw-alias-border-l2);font-weight:400}.dshtu_table th:first-child,.dshtu_table td:first-child{text-align:left}.dshtu_table th{color:var(--dsw-alias-label-tertiary);font-size:12px}.dshtu_table td:first-child{overflow-wrap:anywhere;max-width:300px;color:var(--dsw-alias-label-secondary)}.dshtu_meta{color:var(--dsw-alias-label-tertiary);font-size:12px;line-height:18px}.dshtu_err{color:var(--dsw-alias-state-error-primary);display:flex;align-items:center;gap:10px}.dshtu_err button{border:.5px solid var(--dsw-alias-border-l3);color:var(--dsw-alias-label-primary);font:inherit;cursor:pointer;background:0 0;border-radius:6px;padding:4px 10px}.dshtu_chart{width:100%;height:260px}";
 
   function trimNum(v, decimals) {
     var f = v.toFixed(decimals);
@@ -115,7 +117,33 @@ window.__ModuleLoader__.load({ id: "dsh-token-usage", factory: (require) => {
       h("span", null, label));
   }
 
-  function table(t, keyLabel, rows, unit) {
+  function basename(path) {
+    var text = String(path);
+    var idx = Math.max(text.lastIndexOf("/"), text.lastIndexOf("\\"));
+    return idx >= 0 ? (text.slice(idx + 1) || text) : text;
+  }
+
+  var BUCKET_KEYS = ["calls", "input", "output", "cacheRead", "cacheWrite", "reasoning", "total"];
+
+  /** Project tables read as directory names; same-named projects merge, full path rides the title. */
+  function shortenProjects(rows) {
+    var merged = {};
+    var titles = {};
+    Object.keys(rows || {}).forEach(function (key) {
+      var name = basename(key);
+      titles[name] = key;
+      var source = rows[key];
+      if (merged[name] === undefined) {
+        merged[name] = {};
+        BUCKET_KEYS.forEach(function (k) { merged[name][k] = source[k] || 0; });
+      } else {
+        BUCKET_KEYS.forEach(function (k) { merged[name][k] += source[k] || 0; });
+      }
+    });
+    return { rows: merged, titles: titles };
+  }
+
+  function table(t, keyLabel, rows, unit, titles) {
     var keys = Object.keys(rows || {});
     if (keys.length === 0) return null;
     return h("div", { className: "dshtu_card" },
@@ -132,7 +160,7 @@ window.__ModuleLoader__.load({ id: "dsh-token-usage", factory: (require) => {
         h("tbody", null, keys.map(function (key) {
           var row = rows[key];
           return h("tr", { key: key },
-            h("td", null, key),
+            h("td", { title: titles !== undefined && titles[key] !== undefined ? titles[key] : undefined }, key),
             h("td", null, fmtValue(row.total, unit)),
             h("td", null, fmtValue(row.input, unit)),
             h("td", null, fmtValue(row.output, unit)),
@@ -250,6 +278,7 @@ window.__ModuleLoader__.load({ id: "dsh-token-usage", factory: (require) => {
         controller = new AbortController();
         fetch("/dsh-token-usage" + query, { signal: controller.signal })
           .then(function (res) {
+            if (res.status === 403) throw new Error(t("remoteDenied"));
             if (!res.ok) throw new Error("http " + res.status);
             return res.json();
           })
@@ -336,7 +365,7 @@ window.__ModuleLoader__.load({ id: "dsh-token-usage", factory: (require) => {
           h("span", { style: { flex: "1" } }),
           h("label", null, t("unitLabel")),
           h("span", { className: "dshtu_seg" }, seg("zh", t("unitZh")), seg("en", t("unitEn")))),
-        h("div", { className: "dshtu_meta" }, t("totals")),
+        h("div", { className: "dshtu_meta dshtu_totalsMeta" }, t("totals")),
         h("div", { className: "dshtu_grid" },
           statBox(t, t("total"), totals.total, unit, true),
           statBox(t, t("input"), totals.input, unit),
@@ -348,7 +377,10 @@ window.__ModuleLoader__.load({ id: "dsh-token-usage", factory: (require) => {
       h(TrendChart, { t: t, unit: unit, trend: data.trend }),
       table(t, t("byModel"), data.byModel, unit),
       table(t, t("byDay"), data.byDay, unit),
-      table(t, t("byProject"), data.byProject, unit),
+      (function () {
+        var projects = shortenProjects(data.byProject);
+        return table(t, t("byProject"), projects.rows, unit, projects.titles);
+      })(),
       h("div", { className: "dshtu_meta" }, metaParts.join(" · ")));
   }
 

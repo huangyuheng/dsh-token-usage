@@ -55,6 +55,21 @@ pnpm run build        # 重新生成 client/client.js（= 精简 ECharts + clien
 - `reasoning`：推理 tokens。
 - 模型归属：该会话最近一次 `request/header` 的 model；标题生成等无 usage 记录的小调用不在统计内。
 
+## 兼容性
+
+给他人安装前，这些差异都已处理：
+
+| 维度 | 说明 |
+| --- | --- |
+| 运行环境 | 需要 **dsh web ≥ 0.1.0-rc.6**（设置侧边栏 `settings.section` 槽位）。宿主侧只用 Node 内置模块；zstd 解压依赖 `node:zlib`（Node ≥ 22.15 内置，dsh 自身要求 ^22.19 \|\| >=24，故必然满足）。 |
+| 数据目录 | 按 `$DSH_HOME`（环境变量，缺省 `~/.dsh`）解析，与 dsh 官方 `dsh-home-paths` 规则一致；自定义 home 同样有效。插件**只读**，不写任何文件。 |
+| 会话格式 | 同时支持 `session.jsonl.zstd`（多帧 zstd，含 checksum）与明文 `session.jsonl`；`.bak`/`.corrupt-*` 备份自动跳过；个别损坏帧只计入 `scan.skipped`，不影响其余会话。 |
+| 目录布局 | 兼容官方 JSONL 持久层的 `sessions/<项目目录>/<会话目录>/` 结构；会话按项目目录、会话 ID 独立读取。 |
+| 统计口径 | 部分 provider（如 pi-ai 适配）会把推理 token 并入输出，此时「推理」列为 0 属正常；标题生成、联网搜索等不落 `usage` 的调用不计入；模型归属取该会话最近一次 `request/header`。 |
+| 网络访问 | 接口默认**仅回环**。局域网部署（配置了 trustedHosts）时在 profile patch 里开 `allowRemote: true`，且仍只接受同源请求；客户端遇到 403 会直接提示原因。 |
+| 性能 | 历史重建在 **Worker 线程**执行，不阻塞宿主事件循环；期间新事件先缓冲、扫描完成后回放，靠会话 seq 水位去重。之后只做事件增量。 |
+| 多实例 | 每个 `$DSH_HOME` 独立统计；同一 home 下的多个 profile 共享 `sessions` 目录，统计会合并显示。 |
+
 ## 配置（cordis.patch.yml 可覆盖）
 
 ```yaml
@@ -62,7 +77,8 @@ pnpm run build        # 重新生成 client/client.js（= 精简 ECharts + clien
   name: 'dsh-token-usage'
   config:
     endpoint: /dsh-token-usage
-    scanAtBoot: true   # false 则只统计插件启动之后的实时用量
+    scanAtBoot: true    # false 则只统计插件启动之后的实时用量
+    allowRemote: false  # 局域网（非回环）访问时设为 true，仅接受同源请求
 ```
 
 ## 安装后
