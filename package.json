@@ -36,11 +36,6 @@
     "echarts": "^6.1.0",
     "esbuild": "^0.28.2"
   },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "esbuild"
-    ]
-  },
   "scripts": {
     "build": "node scripts/build-client.mjs"
   }
