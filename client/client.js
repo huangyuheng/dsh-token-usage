@@ -86,7 +86,7 @@ window.__ModuleLoader__.load({ id: "dsh-token-usage", factory: (require) => {
     { key: "calls", label: "calls", color: "#ef4444" }
   ];
 
-  var css = ".dshtu_wrap{max-width:860px;display:flex;flex-direction:column;gap:14px;color:var(--dsw-alias-label-primary);font-size:13px}.dshtu_card{background:var(--dsw-alias-bg-layer-3);border-radius:14px;box-shadow:var(--dsw-elevation-stroke);padding:14px 16px}.dshtu_bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.dshtu_bar label{color:var(--dsw-alias-label-tertiary);font-size:12px}.dshtu_bar select,.dshtu_bar input{border:.5px solid var(--dsw-alias-border-l4);background:var(--dsw-alias-bg-layer-1);color:var(--dsw-alias-label-primary);font:inherit;border-radius:8px;padding:4px 8px;font-size:12.5px;max-width:260px}.dshtu_seg{display:inline-flex;border:.5px solid var(--dsw-alias-border-l4);border-radius:8px;overflow:hidden}.dshtu_seg button{border:0;background:0 0;color:var(--dsw-alias-label-secondary);font:inherit;cursor:pointer;padding:4px 10px;font-size:12.5px}.dshtu_seg button[data-on=true]{background:var(--dsw-alias-interactive-bg-hover);color:var(--dsw-alias-label-primary)}.dshtu_grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}.dshtu_stat{background:var(--dsw-alias-bg-module-platform);border-radius:10px;padding:10px 12px}.dshtu_stat b{display:block;font-size:16px;line-height:24px;font-variant-numeric:tabular-nums}.dshtu_stat span{color:var(--dsw-alias-label-tertiary);font-size:12px}.dshtu_stat[data-main=true]{background:color-mix(in srgb,var(--dsw-alias-state-business-primary) 12%,var(--dsw-alias-bg-module-platform))}.dshtu_stat[data-main=true] b{color:var(--dsw-alias-state-business-primary);font-size:20px}.dshtu_table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}.dshtu_table th,.dshtu_table td{text-align:right;padding:6px 8px;border-bottom:.5px solid var(--dsw-alias-border-l2);font-weight:400}.dshtu_table th:first-child,.dshtu_table td:first-child{text-align:left}.dshtu_table th{color:var(--dsw-alias-label-tertiary);font-size:12px}.dshtu_table td:first-child{overflow-wrap:anywhere;max-width:300px;color:var(--dsw-alias-label-secondary)}.dshtu_meta{color:var(--dsw-alias-label-tertiary);font-size:12px;line-height:18px}.dshtu_err{color:var(--dsw-alias-state-error-primary);display:flex;align-items:center;gap:10px}.dshtu_err button{border:.5px solid var(--dsw-alias-border-l3);color:var(--dsw-alias-label-primary);font:inherit;cursor:pointer;background:0 0;border-radius:6px;padding:4px 10px}.dshtu_chartWrap{position:relative}.dshtu_legend{display:flex;flex-wrap:wrap;gap:10px 16px;margin-top:8px}.dshtu_legendItem{display:inline-flex;align-items:center;gap:6px;color:var(--dsw-alias-label-secondary);font-size:12px}.dshtu_dot{width:8px;height:8px;border-radius:999px;flex:none}.dshtu_tip{position:absolute;top:6px;transform:translateX(-50%);background:var(--dsw-alias-bg-layer-1);border:.5px solid var(--dsw-alias-border-l3);border-radius:8px;padding:6px 9px;font-size:12px;line-height:17px;color:var(--dsw-alias-label-primary);pointer-events:none;white-space:nowrap;box-shadow:var(--dsw-elevation-panel);z-index:2}";
+  var css = ".dshtu_wrap{max-width:860px;display:flex;flex-direction:column;gap:14px;color:var(--dsw-alias-label-primary);font-size:13px}.dshtu_card{background:var(--dsw-alias-bg-layer-3);border-radius:14px;box-shadow:var(--dsw-elevation-stroke);padding:14px 16px}.dshtu_bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.dshtu_bar label{color:var(--dsw-alias-label-tertiary);font-size:12px}.dshtu_bar select,.dshtu_bar input{border:.5px solid var(--dsw-alias-border-l4);background:var(--dsw-alias-bg-layer-1);color:var(--dsw-alias-label-primary);font:inherit;border-radius:8px;padding:4px 8px;font-size:12.5px}.dshtu_bar select{width:168px;text-overflow:ellipsis;white-space:nowrap}.dshtu_field{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}.dshtu_seg{display:inline-flex;border:.5px solid var(--dsw-alias-border-l4);border-radius:8px;overflow:hidden}.dshtu_seg button{border:0;background:0 0;color:var(--dsw-alias-label-secondary);font:inherit;cursor:pointer;padding:4px 10px;font-size:12.5px}.dshtu_seg button[data-on=true]{background:var(--dsw-alias-interactive-bg-hover);color:var(--dsw-alias-label-primary)}.dshtu_grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}.dshtu_stat{background:var(--dsw-alias-bg-module-platform);border-radius:10px;padding:10px 12px}.dshtu_stat b{display:block;font-size:16px;line-height:24px;font-variant-numeric:tabular-nums}.dshtu_stat span{color:var(--dsw-alias-label-tertiary);font-size:12px}.dshtu_stat[data-main=true]{background:color-mix(in srgb,var(--dsw-alias-state-business-primary) 12%,var(--dsw-alias-bg-module-platform))}.dshtu_stat[data-main=true] b{color:var(--dsw-alias-state-business-primary);font-size:20px}.dshtu_table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}.dshtu_table th,.dshtu_table td{text-align:right;padding:6px 8px;border-bottom:.5px solid var(--dsw-alias-border-l2);font-weight:400}.dshtu_table th:first-child,.dshtu_table td:first-child{text-align:left}.dshtu_table th{color:var(--dsw-alias-label-tertiary);font-size:12px}.dshtu_table td:first-child{overflow-wrap:anywhere;max-width:300px;color:var(--dsw-alias-label-secondary)}.dshtu_meta{color:var(--dsw-alias-label-tertiary);font-size:12px;line-height:18px}.dshtu_err{color:var(--dsw-alias-state-error-primary);display:flex;align-items:center;gap:10px}.dshtu_err button{border:.5px solid var(--dsw-alias-border-l3);color:var(--dsw-alias-label-primary);font:inherit;cursor:pointer;background:0 0;border-radius:6px;padding:4px 10px}.dshtu_chartWrap{position:relative}.dshtu_legend{display:flex;flex-wrap:wrap;gap:10px 16px;margin-top:8px}.dshtu_legendItem{display:inline-flex;align-items:center;gap:6px;color:var(--dsw-alias-label-secondary);font-size:12px}.dshtu_dot{width:8px;height:8px;border-radius:999px;flex:none}.dshtu_tip{position:absolute;top:6px;transform:translateX(-50%);background:var(--dsw-alias-bg-layer-1);border:.5px solid var(--dsw-alias-border-l3);border-radius:8px;padding:6px 9px;font-size:12px;line-height:17px;color:var(--dsw-alias-label-primary);pointer-events:none;white-space:nowrap;box-shadow:var(--dsw-elevation-panel);z-index:2}";
 
   function trimNum(v, decimals) {
     var f = v.toFixed(decimals);
@@ -153,7 +153,8 @@ window.__ModuleLoader__.load({ id: "dsh-token-usage", factory: (require) => {
   function TrendChart(props) {
     var t = props.t;
     var unit = props.unit;
-    var byDay = props.byDay || {};
+    var trend = props.trend || { days: {} };
+    var byDay = trend.days || {};
     var days = Object.keys(byDay).sort();
     var hoverState = useState(null);
     var hover = hoverState[0];
@@ -221,7 +222,7 @@ window.__ModuleLoader__.load({ id: "dsh-token-usage", factory: (require) => {
     });
 
     return h("div", { className: "dshtu_card" },
-      h("div", { className: "dshtu_meta" }, t("trend")),
+      h("div", { className: "dshtu_meta" }, t("trend") + " · " + trend.from + " ~ " + trend.to),
       h("div", { className: "dshtu_chartWrap" },
         h("svg", {
           viewBox: "0 0 " + W + " " + H,
@@ -341,10 +342,11 @@ window.__ModuleLoader__.load({ id: "dsh-token-usage", factory: (require) => {
             modeTab("all", t("filterAll"))),
           mode === "day" ? h("input", { type: "date", value: day, onChange: function (e) { setDay(e.target.value); setTick(tick + 1); } }) : null,
           mode === "month" ? h("input", { type: "month", value: month, onChange: function (e) { setMonth(e.target.value); setTick(tick + 1); } }) : null,
-          h("label", null, t("modelLabel")),
-          h("select", { value: model, onChange: function (e) { setModel(e.target.value); setTick(tick + 1); } },
-            h("option", { value: "" }, t("modelAll")),
-            models.map(function (name) { return h("option", { key: name, value: name }, name); })),
+          h("span", { className: "dshtu_field" },
+            h("label", null, t("modelLabel")),
+            h("select", { value: model, onChange: function (e) { setModel(e.target.value); setTick(tick + 1); } },
+              h("option", { value: "" }, t("modelAll")),
+              models.map(function (name) { return h("option", { key: name, value: name }, name); }))),
           h("span", { style: { flex: "1" } }),
           h("label", null, t("unitLabel")),
           h("span", { className: "dshtu_seg" }, seg("zh", t("unitZh")), seg("en", t("unitEn")))),
@@ -357,7 +359,7 @@ window.__ModuleLoader__.load({ id: "dsh-token-usage", factory: (require) => {
           statBox(t, t("cacheWrite"), totals.cacheWrite, unit),
           statBox(t, t("reasoning"), totals.reasoning, unit),
           statBox(t, t("calls"), totals.calls, unit))),
-      h(TrendChart, { t: t, unit: unit, byDay: data.byDay }),
+      h(TrendChart, { t: t, unit: unit, trend: data.trend }),
       table(t, t("byModel"), data.byModel, unit),
       table(t, t("byDay"), data.byDay, unit),
       table(t, t("byProject"), data.byProject, unit),
