@@ -134,7 +134,7 @@ window.__ModuleLoader__.load({ id: "dsh-token-usage", factory: (require) => {
     var _a = useState(null), data = _a[0], setData = _a[1];
     var _b = useState(null), error = _b[0], setError = _b[1];
     var _c = useState(0), tick = _c[0], setTick = _c[1];
-    var _d = useState("all"), mode = _d[0], setMode = _d[1];
+    var _d = useState("day"), mode = _d[0], setMode = _d[1];
     var _e = useState(today()), day = _e[0], setDay = _e[1];
     var _f = useState(thisMonth()), month = _f[0], setMonth = _f[1];
     var _g = useState(function () {
@@ -194,6 +194,10 @@ window.__ModuleLoader__.load({ id: "dsh-token-usage", factory: (require) => {
       return h("button", { key: value, "data-on": unit === value, onClick: function () { switchUnit(value); } }, label);
     };
 
+    var modeTab = function (value, label) {
+      return h("button", { key: value, "data-on": mode === value, onClick: function () { setMode(value); setTick(tick + 1); } }, label);
+    };
+
     if (error) {
       return h("div", { className: "dshtu_wrap" },
         h("div", { className: "dshtu_card dshtu_err" },
@@ -218,10 +222,10 @@ window.__ModuleLoader__.load({ id: "dsh-token-usage", factory: (require) => {
       h("div", { className: "dshtu_card" },
         h("div", { className: "dshtu_bar" },
           h("label", null, t("filterLabel")),
-          h("select", { value: mode, onChange: function (e) { setMode(e.target.value); setTick(tick + 1); } },
-            h("option", { value: "all" }, t("filterAll")),
-            h("option", { value: "day" }, t("filterDay")),
-            h("option", { value: "month" }, t("filterMonth"))),
+          h("span", { className: "dshtu_seg" },
+            modeTab("day", t("filterDay")),
+            modeTab("month", t("filterMonth")),
+            modeTab("all", t("filterAll"))),
           mode === "day" ? h("input", { type: "date", value: day, onChange: function (e) { setDay(e.target.value); setTick(tick + 1); } }) : null,
           mode === "month" ? h("input", { type: "month", value: month, onChange: function (e) { setMonth(e.target.value); setTick(tick + 1); } }) : null,
           h("span", { style: { flex: "1" } }),
@@ -247,11 +251,11 @@ window.__ModuleLoader__.load({ id: "dsh-token-usage", factory: (require) => {
       ctx.locale.register(NS, { zh: zh, en: en });
     }, "dsh-token-usage: dictionaries");
     var t = ctx.locale.bind(NS);
-    ctx.slots.inject("settings.plugins.tab", function () {
+    ctx.slots.inject("settings.section", function () {
       return ctx.slots.register({
-        name: "settings.plugins.tab",
+        name: "settings.section",
         id: "token-usage",
-        order: 11,
+        order: 90,
         label: function () { return t("tab"); },
         locale: NS,
         inject: function () { return { t: t }; }

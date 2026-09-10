@@ -1,6 +1,6 @@
 # dsh-token-usage
 
-DeepSeek Harness 实时 Token 用量插件：安装后在 **设置 → 插件 → Token 用量** 查看总量、按模型/按日期/按项目明细，页面每 5 秒刷新（页面隐藏时暂停，零轮询浪费）。
+DeepSeek Harness 实时 Token 用量插件：安装后在 **设置 → Token 用量** 查看总量、按模型/按日期/按项目明细，页面每 5 秒刷新（页面隐藏时暂停，零轮询浪费）。
 
 ## 安装
 
@@ -44,5 +44,5 @@ curl http://127.0.0.1:3080/dsh-token-usage
 ## 安装后
 
 1. 重启 `dsh web`（bundle 成员变化必须重启才生效）；
-2. 打开 **设置 → 插件 → Token 用量**；
+2. 打开 **设置 → Token 用量**；
 3. 也可以用命令行：`curl 'http://127.0.0.1:3080/dsh-token-usage?month=2026-09'`。
