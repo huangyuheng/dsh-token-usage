@@ -11,6 +11,16 @@ DeepSeek Harness 实时 Token 用量插件：安装后在 **设置 → Token 用
 - **单位切换**：中文（亿 / 万 / 千）与英文（B / M / K）一键切换，记忆选择。
 - **明细表**：按模型、按日期、按项目三张表，含总计列。
 
+## 为什么值得装
+
+你在烧 token，但你说不清烧在哪：哪个项目最贵、哪个模型最吃缓存、这周比上周涨了多少。
+
+**dsh-token-usage 把这些变成一眼看得懂的数字。** 它跟着每一次调用实时累加，把总量、输入、输出、缓存命中、推理和调用次数摊开在设置页里，按模型、按天、按月、按项目随手切换，趋势用一条平滑曲线讲清楚。装完即用：不用配置、不用重启会话、不会在你写代码的时候跳出来打扰你。
+
+看不见的成本最贵——把它变成看得见的。
+
+> 💡 Your agent's token spend, live and legible. Totals with input, output, cache hits, reasoning and call counts — sliced by model, day, month or project, with a smooth trend chart. It boots instantly, scans history once on a worker thread, then only folds live events: no polling, no writes, nothing in your way.
+
 ## 安装
 
 ```sh

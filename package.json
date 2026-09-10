@@ -1,7 +1,7 @@
 {
   "name": "dsh-token-usage",
   "version": "0.1.0",
-  "description": "Real-time token usage monitor for DeepSeek Harness: O(1) event folding, one boot-time log scan, read-only loopback endpoint. · DSH 实时 Token 用量面板",
+  "description": "Real-time token usage dashboard for DeepSeek Harness — live totals (input/output/cache/reasoning), filters by model, day, month and project, and a smooth trend chart. · 实时 Token 用量仪表盘：总量/输入/输出/缓存命中按模型、按天、按月、按项目随选，附趋势曲线。",
   "type": "module",
   "main": "lib/index.js",
   "exports": {
