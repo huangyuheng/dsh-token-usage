@@ -19,7 +19,21 @@ DeepSeek Harness 实时 Token 用量插件：安装后在 **设置 → Token 用
 
 看不见的成本最贵——把它变成看得见的。
 
-> 💡 Your agent's token spend, live and legible. Totals with input, output, cache hits, reasoning and call counts — sliced by model, day, month or project, with a smooth trend chart. It boots instantly, scans history once on a worker thread, then only folds live events: no polling, no writes, nothing in your way.
+## English
+
+**Real-time token usage, without the guesswork.** This plugin adds a **Settings → Token usage** section that shows what your agent spends while it spends it: totals for input, output, cache read, cache write, reasoning and call count, breakdowns by model, day, month and project, and a per-day trend chart covering the last 30 days.
+
+- **Totals card** — total (input + output + cache), input, output, cache read, cache write, reasoning, calls.
+- **Range tabs** — by day (default: today) / by month / all, with a date or month picker.
+- **Model filter** — narrow every breakdown to a single model.
+- **Trend chart** — five series (total, input, output, cache read, calls) for the last 30 days, drawn with a tree-shaken ECharts bundle that ships inside the plugin (no CDN, works offline).
+- **Unit switch** — 亿 / 万 / 千 or B / M / K, remembered per browser.
+
+```sh
+dsh plugin --profile web add git+https://github.com/huangyuheng/dsh-token-use.git
+```
+
+**Why it stays cheap.** History is rebuilt once on a worker thread by reading `$DSH_HOME/sessions`; after that the numbers come from folding live `session/event` usage records — no log rescan per refresh, no polling, no writes. The JSON endpoint (`GET /dsh-token-use`) is read-only and loopback-only by default.
 
 ![Token 用量面板：范围与模型筛选、总量卡片、最近 30 天趋势图与按模型明细](assets/token-usage.jpg)
 
@@ -66,6 +80,30 @@ pnpm run build        # 重新生成 client/client.js（= 精简 ECharts + clien
 - `cacheRead` / `cacheWrite`：提示词缓存读/写 tokens（API 计费口径中缓存读也计入输入侧）。
 - `reasoning`：推理 tokens。
 - 模型归属：该会话最近一次 `request/header` 的 model；标题生成等无 usage 记录的小调用不在统计内。
+
+## 发布到 npm（作者）
+
+`package.json` 已备好 npm 所需字段（`repository` 回指本仓库，市场只认这种关联）。
+
+```sh
+# 1) 登录（只需一次）
+npm login
+
+# 2) 校验将要发布的内容（不会真的发布）
+npm pack --dry-run
+
+# 3) 发布
+npm publish
+
+# 4) 验证
+npm view dsh-token-use version
+```
+
+发布后市场会自动把 npm 包与本仓库关联（下次构建生效）：
+
+- 市场条目会显示下载量；
+- 用户可直接按包名安装：`dsh plugin --profile web add dsh-token-use`；
+- 升级流程变为：改 `version` → `npm publish` → 用户 `dsh plugin update`。
 
 ## 兼容性
 
