@@ -21,6 +21,8 @@ DeepSeek Harness 实时 Token 用量插件：安装后在 **设置 → Token 用
 
 > 💡 Your agent's token spend, live and legible. Totals with input, output, cache hits, reasoning and call counts — sliced by model, day, month or project, with a smooth trend chart. It boots instantly, scans history once on a worker thread, then only folds live events: no polling, no writes, nothing in your way.
 
+![Token 用量面板：范围与模型筛选、总量卡片、最近 30 天趋势图与按模型明细](assets/token-usage.jpg)
+
 ## 安装
 
 ```sh
