@@ -74,36 +74,14 @@ pnpm run build        # 重新生成 client/client.js（= 精简 ECharts + clien
 
 `client/client.js` 是已提交的构建产物，使用者无需安装依赖或构建。
 
+npm 发布元数据（`repository` / `files` / `LICENSE`）已备好但**暂不发布**：当前只通过 GitHub 安装（`dsh plugin --profile web add github:huangyuheng/dsh-token-use`）。需要时执行 `npm publish` 即可。
+
 ## 字段口径
 
 - `input` / `output`：API 上报的输入/输出 tokens。
 - `cacheRead` / `cacheWrite`：提示词缓存读/写 tokens（API 计费口径中缓存读也计入输入侧）。
 - `reasoning`：推理 tokens。
 - 模型归属：该会话最近一次 `request/header` 的 model；标题生成等无 usage 记录的小调用不在统计内。
-
-## 发布到 npm（作者）
-
-`package.json` 已备好 npm 所需字段（`repository` 回指本仓库，市场只认这种关联）。
-
-```sh
-# 1) 登录（只需一次）
-npm login
-
-# 2) 校验将要发布的内容（不会真的发布）
-npm pack --dry-run
-
-# 3) 发布
-npm publish
-
-# 4) 验证
-npm view dsh-token-use version
-```
-
-发布后市场会自动把 npm 包与本仓库关联（下次构建生效）：
-
-- 市场条目会显示下载量；
-- 用户可直接按包名安装：`dsh plugin --profile web add dsh-token-use`；
-- 升级流程变为：改 `version` → `npm publish` → 用户 `dsh plugin update`。
 
 ## 兼容性
 
