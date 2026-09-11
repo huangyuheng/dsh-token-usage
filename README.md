@@ -1,5 +1,7 @@
 # dsh-token-use
 
+[English](README.en.md) | 中文
+
 DeepSeek Harness 实时 Token 用量插件：安装后在 **设置 → Token 用量** 查看用量（自带设置侧边栏一级入口），页面每 5 秒刷新（页面隐藏时暂停，零轮询浪费）。
 
 ## 功能
@@ -18,22 +20,6 @@ DeepSeek Harness 实时 Token 用量插件：安装后在 **设置 → Token 用
 **dsh-token-use 把这些变成一眼看得懂的数字。** 它跟着每一次调用实时累加，把总量、输入、输出、缓存命中、推理和调用次数摊开在设置页里，按模型、按天、按月、按项目随手切换，趋势用一条平滑曲线讲清楚。装完即用：不用配置、不用重启会话、不会在你写代码的时候跳出来打扰你。
 
 看不见的成本最贵——把它变成看得见的。
-
-## English
-
-**Real-time token usage, without the guesswork.** This plugin adds a **Settings → Token usage** section that shows what your agent spends while it spends it: totals for input, output, cache read, cache write, reasoning and call count, breakdowns by model, day, month and project, and a per-day trend chart covering the last 30 days.
-
-- **Totals card** — total (input + output + cache), input, output, cache read, cache write, reasoning, calls.
-- **Range tabs** — by day (default: today) / by month / all, with a date or month picker.
-- **Model filter** — narrow every breakdown to a single model.
-- **Trend chart** — five series (total, input, output, cache read, calls) for the last 30 days, drawn with a tree-shaken ECharts bundle that ships inside the plugin (no CDN, works offline).
-- **Unit switch** — 亿 / 万 / 千 or B / M / K, remembered per browser.
-
-```sh
-dsh plugin --profile web add git+https://github.com/huangyuheng/dsh-token-use.git
-```
-
-**Why it stays cheap.** History is rebuilt once on a worker thread by reading `$DSH_HOME/sessions`; after that the numbers come from folding live `session/event` usage records — no log rescan per refresh, no polling, no writes. The JSON endpoint (`GET /dsh-token-use`) is read-only and loopback-only by default.
 
 ![Token 用量面板：范围与模型筛选、总量卡片、最近 30 天趋势图与按模型明细](assets/token-usage.jpg)
 
