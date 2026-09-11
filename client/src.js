@@ -1,4 +1,4 @@
-window.__ModuleLoader__.load({ id: "dsh-token-usage", factory: (require) => {
+window.__ModuleLoader__.load({ id: "dsh-token-use", factory: (require) => {
   var module = { exports: {} };
   var exports = module.exports;
   var react = require("react");
@@ -276,7 +276,7 @@ window.__ModuleLoader__.load({ id: "dsh-token-usage", factory: (require) => {
       var load = function () {
         if (controller) controller.abort();
         controller = new AbortController();
-        fetch("/dsh-token-usage" + query, { signal: controller.signal })
+        fetch("/dsh-token-use" + query, { signal: controller.signal })
           .then(function (res) {
             if (res.status === 403) throw new Error(t("remoteDenied"));
             if (!res.ok) throw new Error("http " + res.status);
@@ -387,7 +387,7 @@ window.__ModuleLoader__.load({ id: "dsh-token-usage", factory: (require) => {
   function apply(ctx) {
     ctx.effect(function () {
       ctx.locale.register(NS, { zh: zh, en: en });
-    }, "dsh-token-usage: dictionaries");
+    }, "dsh-token-use: dictionaries");
     var t = ctx.locale.bind(NS);
     ctx.slots.inject("settings.section", function () {
       return ctx.slots.register({

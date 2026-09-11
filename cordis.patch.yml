@@ -1,7 +1,7 @@
 # dsh bundle patch: inserts this plugin into a profile's layer stack.
 - insert:
-    - id: dsh-token-usage
-      name: 'dsh-token-usage'
+    - id: dsh-token-use
+      name: 'dsh-token-use'
       config:
-        endpoint: /dsh-token-usage
+        endpoint: /dsh-token-use
         scanAtBoot: true

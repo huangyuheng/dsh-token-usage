@@ -1,4 +1,4 @@
-# dsh-token-usage
+# dsh-token-use
 
 DeepSeek Harness 实时 Token 用量插件：安装后在 **设置 → Token 用量** 查看用量（自带设置侧边栏一级入口），页面每 5 秒刷新（页面隐藏时暂停，零轮询浪费）。
 
@@ -15,7 +15,7 @@ DeepSeek Harness 实时 Token 用量插件：安装后在 **设置 → Token 用
 
 你在烧 token，但你说不清烧在哪：哪个项目最贵、哪个模型最吃缓存、这周比上周涨了多少。
 
-**dsh-token-usage 把这些变成一眼看得懂的数字。** 它跟着每一次调用实时累加，把总量、输入、输出、缓存命中、推理和调用次数摊开在设置页里，按模型、按天、按月、按项目随手切换，趋势用一条平滑曲线讲清楚。装完即用：不用配置、不用重启会话、不会在你写代码的时候跳出来打扰你。
+**dsh-token-use 把这些变成一眼看得懂的数字。** 它跟着每一次调用实时累加，把总量、输入、输出、缓存命中、推理和调用次数摊开在设置页里，按模型、按天、按月、按项目随手切换，趋势用一条平滑曲线讲清楚。装完即用：不用配置、不用重启会话、不会在你写代码的时候跳出来打扰你。
 
 看不见的成本最贵——把它变成看得见的。
 
@@ -24,29 +24,29 @@ DeepSeek Harness 实时 Token 用量插件：安装后在 **设置 → Token 用
 ## 安装
 
 ```sh
-dsh plugin --profile web add git+https://github.com/huangyuheng/dsh-token-usage.git
+dsh plugin --profile web add git+https://github.com/huangyuheng/dsh-token-use.git
 ```
 
 重启 `dsh web` 后生效。下载 zip 解压后的本地目录安装：
 
 ```sh
-dsh plugin --profile web add /解压路径/dsh-token-usage
+dsh plugin --profile web add /解压路径/dsh-token-use
 ```
 
 ## 性能设计
 
 - 宿主侧 **不轮询、不写盘、不加定时器**：通过 `session/event` 事件总线做 O(1) 增量累加（每条 `assistant/message` 一次字典加法）。
 - 启动时做 **一次性**历史重建：流式解压 `$DSH_HOME/sessions/**/session.jsonl.zstd`（`node:zlib` 原生 zstd），每读一个文件主动让出事件循环（`scheduler.yield()`），不阻塞会话处理；重建与实时事件用「会话 seq 水位」去重，任意先后顺序都不会重复计数。
-- 只暴露一个只读 JSON 接口 `GET /dsh-token-usage`（仅回环可访问，内存快照，`no-store`）。
+- 只暴露一个只读 JSON 接口 `GET /dsh-token-use`（仅回环可访问，内存快照，`no-store`）。
 
 ```sh
 # 全部
-curl http://127.0.0.1:3080/dsh-token-usage
+curl http://127.0.0.1:3080/dsh-token-use
 # 指定日期 / 月份
-curl 'http://127.0.0.1:3080/dsh-token-usage?month=2026-09'
-curl 'http://127.0.0.1:3080/dsh-token-usage?day=2026-09-10'
+curl 'http://127.0.0.1:3080/dsh-token-use?month=2026-09'
+curl 'http://127.0.0.1:3080/dsh-token-use?day=2026-09-10'
 # 指定模型（可与 day/month 组合）
-curl 'http://127.0.0.1:3080/dsh-token-usage?model=deepseek-v4-flash'
+curl 'http://127.0.0.1:3080/dsh-token-use?model=deepseek-v4-flash'
 ```
 
 ## 开发
@@ -83,10 +83,10 @@ pnpm run build        # 重新生成 client/client.js（= 精简 ECharts + clien
 ## 配置（cordis.patch.yml 可覆盖）
 
 ```yaml
-- id: dsh-token-usage
-  name: 'dsh-token-usage'
+- id: dsh-token-use
+  name: 'dsh-token-use'
   config:
-    endpoint: /dsh-token-usage
+    endpoint: /dsh-token-use
     scanAtBoot: true    # false 则只统计插件启动之后的实时用量
     allowRemote: false  # 局域网（非回环）访问时设为 true，仅接受同源请求
 ```
@@ -95,4 +95,4 @@ pnpm run build        # 重新生成 client/client.js（= 精简 ECharts + clien
 
 1. 重启 `dsh web`（bundle 成员变化必须重启才生效）；
 2. 打开 **设置 → Token 用量**；
-3. 也可以用命令行：`curl 'http://127.0.0.1:3080/dsh-token-usage?month=2026-09'`。
+3. 也可以用命令行：`curl 'http://127.0.0.1:3080/dsh-token-use?month=2026-09'`。
